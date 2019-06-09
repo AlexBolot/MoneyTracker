@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:money_tracker/views/home.dart';
+import 'package:money_tracker/views/global_view.dart';
 import 'package:money_tracker/views/splash_screen.dart';
 
 void main() => runApp(MyApp());
@@ -13,7 +13,7 @@ class MyApp extends StatelessWidget {
       routes: {
         '/': (context) => SplashScreen(),
         SplashScreen.routeName: (context) => SplashScreen(),
-        Home.routeName: (context) => Home(),
+        GlobalView.routeName: (context) => GlobalView(),
       },
     );
   }
