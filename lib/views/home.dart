@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:money_tracker/widgets/settings.dart';
+import 'package:money_tracker/widgets/description_tab.dart';
 
 class Home extends StatefulWidget {
   static const String routeName = "/Home";
@@ -15,12 +16,24 @@ class Home extends StatefulWidget {
 class _HomeState extends State<Home> {
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(title: Text(widget.title)),
-      drawer: Settings(),
-      body: Container(
-        child: Center(
-          child: Text(widget.title),
+    return DefaultTabController(
+      length: 3,
+      child: Scaffold(
+        appBar: AppBar(
+          title: Text(widget.title),
+          bottom: TabBar(
+            tabs: [
+              DescriptionTab(text: "Accueuil", iconData: Icons.home),
+              DescriptionTab(text: "Liquide", iconData: Icons.account_balance_wallet),
+              DescriptionTab(text: "N26", iconData: Icons.account_balance_wallet),
+            ],
+          ),
+        ),
+        drawer: Settings(),
+        body: Container(
+          child: Center(
+            child: Text(widget.title),
+          ),
         ),
       ),
     );
