@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:money_tracker/widgets/settings.dart';
 
 class Home extends StatefulWidget {
   static const String routeName = "/Home";
@@ -16,6 +17,7 @@ class _HomeState extends State<Home> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(title: Text(widget.title)),
+      drawer: Settings(),
       body: Container(
         child: Center(
           child: Text(widget.title),
