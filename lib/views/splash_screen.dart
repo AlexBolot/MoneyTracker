@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:money_tracker/main.dart';
+import 'package:money_tracker/views/home.dart';
 import 'package:money_tracker/widgets/bubble_loader.dart';
 
 class SplashScreen extends StatefulWidget {
@@ -64,8 +65,8 @@ class _SplashScreenState extends State<SplashScreen> with SingleTickerProviderSt
   }
 
   applicationLoading() async {
-    Future.delayed(const Duration(seconds: 5));
+    await Future.delayed(const Duration(seconds: 5));
     loader.dispose();
-    // Navigator.of(context).pushReplacementNamed(ContractSearch.routeName);
+     Navigator.of(context).pushReplacementNamed(Home.routeName);
   }
 }
