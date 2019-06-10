@@ -16,12 +16,16 @@ class GlobalView extends StatefulWidget {
   _GlobalViewState createState() => _GlobalViewState();
 }
 
-class _GlobalViewState extends State<GlobalView> with SingleTickerProviderStateMixin {
+class _GlobalViewState extends State<GlobalView>
+    with SingleTickerProviderStateMixin {
   TabController tabController;
 
   List<Wallet> wallets = [
-    Wallet(name: 'Liquide', start: DateTime.now()),
-    Wallet(name: 'N26', start: DateTime.now()),
+    Wallet(
+        name: '\$', isInSecondaryCurrency: false, hasBalance: true, start: DateTime.now()),
+    Wallet(
+        name: '\$2', isInSecondaryCurrency: false, hasBalance: true, start: DateTime.now()),
+    Wallet(name: 'N26', isInSecondaryCurrency: true, hasBalance: true, start: DateTime.now(), iconData: Icons.account_balance_wallet) ,
   ];
 
   @override
@@ -57,10 +61,11 @@ class _GlobalViewState extends State<GlobalView> with SingleTickerProviderStateM
   List<Widget> tabs() {
     List<Widget> tabs = [];
 
-    tabs.add(DescriptionTab(text: 'Accueuil', iconData: Icons.home));
+    tabs.add(DescriptionTab(text: '', iconData: Icons.home));
 
     for (Wallet wallet in wallets) {
-      tabs.add(DescriptionTab(text: wallet.name, iconData: Icons.account_balance_wallet));
+      tabs.add(DescriptionTab(
+          text: wallet.name, iconData: wallet.iconData));
     }
 
     return tabs;
