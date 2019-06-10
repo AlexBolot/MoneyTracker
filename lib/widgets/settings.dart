@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 
+import 'display_second_currency.dart';
+
 class Settings extends StatefulWidget {
   @override
   _SettingsState createState() => _SettingsState();
@@ -33,14 +35,19 @@ class _SettingsState extends State<Settings> {
                   }),
             ),
             Container(
-              child: Row(children: <Widget>[
-                Text("Affichage en devise secondaire :"),
-                Checkbox(value:false)
-              ]),
+              child: Text("Afficher dans la devise secondaire"),
             ),
+            Container(
+              child: DisplaySecondCurrencyState(),
+            )
           ],
         ),
       ),
     );
   }
 }
+
+/*
+ *               title: 
+              trailing: DisplaySecondCurrencyState(),
+ */
