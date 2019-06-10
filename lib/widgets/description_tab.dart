@@ -14,15 +14,19 @@ class _DescriptionTabState extends State<DescriptionTab> {
   @override
   Widget build(BuildContext context) {
     return Tab(
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: <Widget>[
-          Padding(
-            padding: const EdgeInsets.only(right: 8),
-            child: Icon(widget.iconData),
-          ),
-          Text(widget.text),
-        ],
+      child: Padding(
+        padding: const EdgeInsets.symmetric(horizontal: 8),
+        child: Row(
+          mainAxisSize: MainAxisSize.min,
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: <Widget>[
+            Padding(
+              padding: const EdgeInsets.only(right: 8),
+              child: Icon(widget.iconData),
+            ),
+            Text(widget.text),
+          ],
+        ),
       ),
     );
   }

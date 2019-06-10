@@ -8,7 +8,7 @@ class DayEntry {
     return entries.where((entry) => entry.isSpending).map((entry) => entry.amount).reduce((val1, val2) => val1 + val2);
   }
 
-  DayEntry(this.entries, this.dateTime) {
+  DayEntry({this.entries, this.dateTime}) {
     this.entries ??= [];
   }
 }

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:money_tracker/model/currency.dart';
 import 'package:money_tracker/views/global_view.dart';
 import 'package:money_tracker/views/splash_screen.dart';
 
@@ -27,3 +28,5 @@ Color contrastOf(Color background) {
 String toFirstUpper(String string) {
   return string[0].toUpperCase() + string.substring(1).toLowerCase();
 }
+
+Currency currency = Currency(principal: "\$", secondary: "€", principalToSecondaryRate: 0.666);

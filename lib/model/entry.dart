@@ -10,8 +10,8 @@ class Entry {
 
   bool get isIncome => factor > 0;
 
-  Entry({@required this.name, @required this.amount, this.dateTime, bool isSpending = true}) {
-    this.factor = isSpending ? -1 : 1;
+  Entry({@required this.name, @required this.amount, this.dateTime, bool isIncome = false}) {
+    this.factor = isIncome ? 1 : -1;
     this.dateTime ??= DateTime.now();
   }
 }

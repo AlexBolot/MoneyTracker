@@ -1,5 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:money_tracker/main.dart';
+import 'package:money_tracker/model/currency.dart';
+import 'package:money_tracker/model/day_entry.dart';
 import 'package:money_tracker/model/wallet.dart';
+import 'package:money_tracker/widgets/day_card.dart';
 
 class WalletView extends StatefulWidget {
   static const String routeName = "/WalletView";
@@ -13,12 +17,49 @@ class WalletView extends StatefulWidget {
 }
 
 class _WalletViewState extends State<WalletView> {
+  List<DayEntry> entries;
+
+  @override
+  void initState() {
+    entries = widget.wallet.dayEntries;
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Container(
-      child: Center(
-        child: Text(widget.wallet.name),
+      child: ListView(children: buildItems()),
+    );
+  }
+
+  List<Widget> buildItems() {
+    List<Widget> items = [];
+
+    String currTag = widget.wallet.isInSecondaryCurrency ? currency.secondary : currency.principal;
+
+    double balance = 232;
+
+    items.add(
+      Card(
+        elevation: 8,
+        margin: EdgeInsets.only(top: 16, left: 16, right: 16),
+        child: Padding(
+          padding: const EdgeInsets.all(16.0),
+          child: Text(
+            'Solde ${balance.toStringAsFixed(2)}$currTag',
+            style: TextStyle(
+              fontSize: 28,
+              fontWeight: FontWeight.bold,
+              color: balance.isNegative ? Colors.red : Colors.green,
+            ),
+            textAlign: TextAlign.center,
+          ),
+        ),
       ),
     );
+
+    items.addAll(entries.map((dayEntry) => DayCard(dayEntry: dayEntry)).toList());
+
+    return items;
   }
 }

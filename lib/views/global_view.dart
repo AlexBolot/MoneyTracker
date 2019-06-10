@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:money_tracker/model/day_entry.dart';
+import 'package:money_tracker/model/entry.dart';
 import 'package:money_tracker/model/wallet.dart';
 import 'package:money_tracker/views/recap_view.dart';
 import 'package:money_tracker/views/wallet_view.dart';
@@ -16,16 +18,49 @@ class GlobalView extends StatefulWidget {
   _GlobalViewState createState() => _GlobalViewState();
 }
 
-class _GlobalViewState extends State<GlobalView>
-    with SingleTickerProviderStateMixin {
+class _GlobalViewState extends State<GlobalView> with SingleTickerProviderStateMixin {
   TabController tabController;
 
   List<Wallet> wallets = [
     Wallet(
-        name: '\$', isInSecondaryCurrency: false, hasBalance: true, start: DateTime.now()),
+      name: 'N26',
+      iconData: Icons.account_balance_wallet,
+      isInSecondaryCurrency: false,
+      hasBalance: true,
+      start: DateTime.now(),
+      dayEntries: [
+        DayEntry(dateTime: DateTime.now(), entries: [
+          Entry(name: 'Glaces', amount: 2.3),
+          Entry(name: 'Escence', amount: 35.75),
+        ]),
+        DayEntry(dateTime: DateTime.now().add(Duration(days: -1)), entries: [
+          Entry(name: 'Courses', amount: 43.2),
+          Entry(name: 'Retrait', amount: 50, isIncome: true),
+        ]),
+        DayEntry(dateTime: DateTime.now().add(Duration(days: -2)), entries: [
+          Entry(name: 'Cinéma', amount: 12.3),
+        ]),
+      ],
+    ),
     Wallet(
-        name: '\$2', isInSecondaryCurrency: false, hasBalance: true, start: DateTime.now()),
-    Wallet(name: 'N26', isInSecondaryCurrency: true, hasBalance: true, start: DateTime.now(), iconData: Icons.account_balance_wallet) ,
+      name: 'Cash',
+      iconData: Icons.account_balance_wallet,
+      isInSecondaryCurrency: true,
+      hasBalance: false,
+      start: DateTime.now(),
+      dayEntries: [
+        DayEntry(dateTime: DateTime.now(), entries: [
+          Entry(name: 'Glaces', amount: 2.3),
+          Entry(name: 'Escence', amount: 35.75),
+        ]),
+        DayEntry(dateTime: DateTime.now().add(Duration(days: -1)), entries: [
+          Entry(name: 'Courses', amount: 43.2),
+        ]),
+        DayEntry(dateTime: DateTime.now().add(Duration(days: -2)), entries: [
+          Entry(name: 'Cinéma', amount: 12.3),
+        ]),
+      ],
+    ),
   ];
 
   @override
@@ -46,6 +81,7 @@ class _GlobalViewState extends State<GlobalView>
       appBar: AppBar(
         title: Text(widget.title),
         bottom: TabBar(
+          isScrollable: true,
           controller: tabController,
           tabs: tabs(),
         ),
@@ -64,8 +100,7 @@ class _GlobalViewState extends State<GlobalView>
     tabs.add(DescriptionTab(text: '', iconData: Icons.home));
 
     for (Wallet wallet in wallets) {
-      tabs.add(DescriptionTab(
-          text: wallet.name, iconData: wallet.iconData));
+      tabs.add(DescriptionTab(text: wallet.name, iconData: wallet.iconData));
     }
 
     return tabs;

@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:money_tracker/main.dart';
 import 'package:money_tracker/views/global_view.dart';
 import 'package:money_tracker/widgets/bubble_loader.dart';
+import 'package:intl/date_symbol_data_local.dart' as intl;
 
 class SplashScreen extends StatefulWidget {
   static const String routeName = "/SplashScreen";
@@ -65,8 +66,9 @@ class _SplashScreenState extends State<SplashScreen> with SingleTickerProviderSt
   }
 
   applicationLoading() async {
-    await Future.delayed(const Duration(seconds: 1));
+    await intl.initializeDateFormatting("fr", null);
+
     loader.dispose();
-     Navigator.of(context).pushReplacementNamed(GlobalView.routeName);
+    Navigator.of(context).pushReplacementNamed(GlobalView.routeName);
   }
 }

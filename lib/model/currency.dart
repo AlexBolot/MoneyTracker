@@ -5,13 +5,11 @@ class Currency {
   String secondary;
   double principalToSecondaryRate;
 
-  bool isPrincipal(String currency) => currency==principal;
-  bool isSecondary(String currency) => currency==secondary;
+  bool isPrincipal(String currency) => currency == principal;
 
-    Currency({@required this.principal, secondary="", this.principalToSecondaryRate = 1}) {
+  bool isSecondary(String currency) => currency == secondary;
 
-      if (this.principal==secondary | this.principalToSecondaryRate<=0) this.principalToSecondaryRate=1;
-
-    }
+  Currency({@required this.principal, secondary = "", this.principalToSecondaryRate = 1}) {
+    if (this.principal == secondary || this.principalToSecondaryRate <= 0) this.principalToSecondaryRate = 1;
   }
-
+}
