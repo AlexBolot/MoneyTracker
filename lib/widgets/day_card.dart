@@ -6,8 +6,9 @@ import 'package:intl/intl.dart';
 
 class DayCard extends StatefulWidget {
   final DayEntry dayEntry;
+  final bool isSecondary;
 
-  const DayCard({this.dayEntry});
+  const DayCard({this.dayEntry, this.isSecondary});
 
   @override
   _DayCardState createState() => _DayCardState();
@@ -44,12 +45,10 @@ class _DayCardState extends State<DayCard> {
   List<Widget> entries() {
     List<Widget> items = [];
 
-    items.add(
-      Text(
-        toFirstUpper(DateFormat("EEEEE dd/MM", "fr").format(dateTime)),
-        style: TextStyle(fontSize: 20, color: Colors.grey),
-      ),
-    );
+    items.add(Text(
+      toFirstUpper(DateFormat("EEEEE dd/MM", "fr").format(dateTime)),
+      style: TextStyle(fontSize: 20, color: Colors.grey),
+    ));
 
     items.add(Divider());
 
@@ -63,7 +62,7 @@ class _DayCardState extends State<DayCard> {
             children: <Widget>[
               Text(entry.name, style: TextStyle(fontSize: 18.0)),
               Text(
-                entry.amount.toStringAsFixed(2),
+                currency.format(amount: entry.amount, secondary: widget.isSecondary),
                 style: TextStyle(fontSize: 18.0, color: entry.isSpending ? Colors.red : Colors.green),
               ),
             ],
@@ -74,27 +73,20 @@ class _DayCardState extends State<DayCard> {
 
     items.add(Divider());
 
-    items.add(
-      Row(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        children: <Widget>[
-          Text("Solde 283€", style: TextStyle(fontSize: 18.0)),
-          Text("Dépenses ${totalSpent()}", style: TextStyle(fontSize: 18.0)),
-        ],
-      ),
-    );
+    items.add(Row(
+      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+      children: <Widget>[
+        Text("Solde 283€", style: TextStyle(fontSize: 18.0, fontWeight: FontWeight.bold)),
+        Text(
+          "Dépenses ${currency.format(amount: widget.dayEntry.totalSpent, secondary: widget.isSecondary)}",
+          style: TextStyle(
+            fontSize: 18.0,
+            fontWeight: FontWeight.bold,
+          ),
+        ),
+      ],
+    ));
 
     return items;
-  }
-  
-  double totalSpent(){
-    double res = 0;
-    
-    for(Entry entry in entryList){
-      if(entry.isSpending)
-        res += entry.amount;
-    }
-
-    return res;
   }
 }

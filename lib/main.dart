@@ -29,4 +29,4 @@ String toFirstUpper(String string) {
   return string[0].toUpperCase() + string.substring(1).toLowerCase();
 }
 
-Currency currency = Currency(principal: "\$", secondary: "€", principalToSecondaryRate: 0.666);
+Currency currency = Currency(primary: "\$", secondary: "€", changeRate: 0.666);

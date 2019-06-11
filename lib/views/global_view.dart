@@ -25,7 +25,7 @@ class _GlobalViewState extends State<GlobalView> with SingleTickerProviderStateM
     Wallet(
       name: 'N26',
       iconData: Icons.account_balance_wallet,
-      isInSecondaryCurrency: false,
+      isSecondaryCurrency: false,
       hasBalance: true,
       start: DateTime.now(),
       dayEntries: [
@@ -45,7 +45,7 @@ class _GlobalViewState extends State<GlobalView> with SingleTickerProviderStateM
     Wallet(
       name: 'Cash',
       iconData: Icons.account_balance_wallet,
-      isInSecondaryCurrency: true,
+      isSecondaryCurrency: true,
       hasBalance: false,
       start: DateTime.now(),
       dayEntries: [

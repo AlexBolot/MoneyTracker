@@ -34,10 +34,8 @@ class _WalletViewState extends State<WalletView> {
 
   List<Widget> buildItems() {
     List<Widget> items = [];
-
-    String currTag = widget.wallet.isInSecondaryCurrency ? currency.secondary : currency.principal;
-
-    double balance = 232;
+    bool isSecondary = widget.wallet.isSecondaryCurrency;
+    double balance = widget.wallet.balance;
 
     items.add(
       Card(
@@ -46,7 +44,7 @@ class _WalletViewState extends State<WalletView> {
         child: Padding(
           padding: const EdgeInsets.all(16.0),
           child: Text(
-            'Solde ${balance.toStringAsFixed(2)}$currTag',
+            'Solde ${currency.format(amount: balance, secondary: isSecondary)}',
             style: TextStyle(
               fontSize: 28,
               fontWeight: FontWeight.bold,
@@ -58,7 +56,7 @@ class _WalletViewState extends State<WalletView> {
       ),
     );
 
-    items.addAll(entries.map((dayEntry) => DayCard(dayEntry: dayEntry)).toList());
+    items.addAll(entries.map((dayEntry) => DayCard(dayEntry: dayEntry, isSecondary: isSecondary)).toList());
 
     return items;
   }

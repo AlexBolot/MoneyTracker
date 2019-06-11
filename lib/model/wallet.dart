@@ -5,7 +5,7 @@ class Wallet {
   String name;
   DateTime start;
   bool hasBalance;
-  bool isInSecondaryCurrency;
+  bool isSecondaryCurrency;
   List<DayEntry> dayEntries;
   IconData iconData;
 
@@ -13,9 +13,13 @@ class Wallet {
       {@required this.name,
       @required this.start,
       this.hasBalance = false,
-      this.isInSecondaryCurrency = false,
+      this.isSecondaryCurrency = false,
       this.dayEntries,
       this.iconData}) {
     this.dayEntries ??= [];
+  }
+
+  double get balance {
+    return dayEntries.map((entry) => entry.totalIncome - entry.totalSpent).reduce((a, b) => a + b);
   }
 }
