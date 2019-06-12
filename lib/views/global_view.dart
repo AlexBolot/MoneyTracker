@@ -35,10 +35,11 @@ class _GlobalViewState extends State<GlobalView> with SingleTickerProviderStateM
         ]),
         DayEntry(dateTime: DateTime.now().add(Duration(days: -1)), entries: [
           Entry(name: 'Courses', amount: 43.2),
-          Entry(name: 'Retrait', amount: 50, isIncome: true),
+          Entry(name: 'Retrait', amount: 50),
         ]),
         DayEntry(dateTime: DateTime.now().add(Duration(days: -2)), entries: [
           Entry(name: 'Cinéma', amount: 12.3),
+          Entry(name: 'Virement', amount: 500, isIncome: true),
         ]),
       ],
     ),
@@ -55,9 +56,11 @@ class _GlobalViewState extends State<GlobalView> with SingleTickerProviderStateM
         ]),
         DayEntry(dateTime: DateTime.now().add(Duration(days: -1)), entries: [
           Entry(name: 'Courses', amount: 43.2),
+          Entry(name: 'Retrait', amount: 50, isIncome: true),
         ]),
         DayEntry(dateTime: DateTime.now().add(Duration(days: -2)), entries: [
           Entry(name: 'Cinéma', amount: 12.3),
+          Entry(name: 'Change Nice', amount: 300, isIncome: true),
         ]),
       ],
     ),

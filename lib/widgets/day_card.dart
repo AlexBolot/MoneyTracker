@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:money_tracker/main.dart';
 import 'package:money_tracker/model/day_entry.dart';
-import 'package:money_tracker/model/static_currency.dart';
 import 'package:money_tracker/model/entry.dart';
 import 'package:intl/intl.dart';
+import 'package:money_tracker/widgets/money_text.dart';
 
 class DayCard extends StatefulWidget {
   final DayEntry dayEntry;
@@ -46,48 +46,59 @@ class _DayCardState extends State<DayCard> {
   List<Widget> entries() {
     List<Widget> items = [];
 
-    items.add(Text(
-      toFirstUpper(DateFormat("EEEEE dd/MM", "fr").format(dateTime)),
-      style: TextStyle(fontSize: 20, color: Colors.grey),
-    ));
+    items.add(date());
 
     items.add(Divider());
 
     for (Entry entry in entryList) {
-      items.add(
-        Padding(
-          padding: const EdgeInsets.only(top: 8),
-          child: Row(
-            mainAxisSize: MainAxisSize.max,
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: <Widget>[
-              Text(entry.name, style: TextStyle(fontSize: 18.0)),
-              Text(
-                StaticCurrency.format(amount: entry.amount, isSecondary: widget.isSecondary),
-                style: TextStyle(fontSize: 18.0, color: entry.isSpending ? Colors.red : Colors.green),
-              ),
-            ],
-          ),
-        ),
-      );
+      items.add(entryLine(entry));
     }
 
     items.add(Divider());
 
-    items.add(Row(
-      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-      children: <Widget>[
-        Text("Solde 283€", style: TextStyle(fontSize: 18.0, fontWeight: FontWeight.bold)),
-        Text(
-          "Dépenses ${StaticCurrency.format(amount: widget.dayEntry.totalSpent, isSecondary: widget.isSecondary)}",
-          style: TextStyle(
-            fontSize: 18.0,
-            fontWeight: FontWeight.bold,
-          ),
-        ),
-      ],
-    ));
+    items.add(total());
 
     return items;
+  }
+
+  Widget date() {
+    return Text(
+      toFirstUpper(DateFormat("EEEEE dd/MM", "fr").format(dateTime)),
+      style: TextStyle(fontSize: 20, color: Colors.grey),
+    );
+  }
+
+  Widget entryLine(Entry entry) {
+    return Padding(
+      padding: const EdgeInsets.only(top: 8),
+      child: Row(
+        mainAxisSize: MainAxisSize.max,
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        children: <Widget>[
+          Text(entry.name, style: TextStyle(fontSize: 18.0)),
+          MoneyText(
+            amount: entry.amount,
+            isSecondary: widget.isSecondary,
+            style: TextStyle(fontSize: 18.0, color: entry.isSpending ? Colors.red : Colors.green),
+          ),
+        ],
+      ),
+    );
+  }
+
+  Widget total() {
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.end,
+      mainAxisSize: MainAxisSize.max,
+      children: <Widget>[
+        MoneyText(
+          text: 'Dépenses',
+          amount: widget.dayEntry.totalSpent,
+          isSecondary: widget.isSecondary,
+          style: TextStyle(fontSize: 18.0, fontWeight: FontWeight.bold),
+          textAlign: TextAlign.end,
+        ),
+      ],
+    );
   }
 }
