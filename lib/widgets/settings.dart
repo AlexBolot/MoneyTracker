@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-
+import 'package:money_tracker/views/currency_setting_view.dart';
 class Settings extends StatefulWidget {
   @override
   _SettingsState createState() => _SettingsState();
@@ -24,7 +24,8 @@ class _SettingsState extends State<Settings> {
               ListTile(
                   title: Text("Devises"),
                   onTap: () {
-                    print("Devises");
+                    Navigator.pushReplacement(
+                    context, new MaterialPageRoute(builder: (BuildContext context) => new CurrencySettingView()));
                   }),
               SwitchListTile(
                   value: true,

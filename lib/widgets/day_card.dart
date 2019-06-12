@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:money_tracker/main.dart';
 import 'package:money_tracker/model/day_entry.dart';
+import 'package:money_tracker/model/static_currency.dart';
 import 'package:money_tracker/model/entry.dart';
 import 'package:intl/intl.dart';
 
@@ -62,7 +63,7 @@ class _DayCardState extends State<DayCard> {
             children: <Widget>[
               Text(entry.name, style: TextStyle(fontSize: 18.0)),
               Text(
-                currency.format(amount: entry.amount, secondary: widget.isSecondary),
+                StaticCurrency.format(amount: entry.amount, isSecondary: widget.isSecondary),
                 style: TextStyle(fontSize: 18.0, color: entry.isSpending ? Colors.red : Colors.green),
               ),
             ],
@@ -78,7 +79,7 @@ class _DayCardState extends State<DayCard> {
       children: <Widget>[
         Text("Solde 283€", style: TextStyle(fontSize: 18.0, fontWeight: FontWeight.bold)),
         Text(
-          "Dépenses ${currency.format(amount: widget.dayEntry.totalSpent, secondary: widget.isSecondary)}",
+          "Dépenses ${StaticCurrency.format(amount: widget.dayEntry.totalSpent, isSecondary: widget.isSecondary)}",
           style: TextStyle(
             fontSize: 18.0,
             fontWeight: FontWeight.bold,

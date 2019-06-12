@@ -13,7 +13,7 @@ class Wallet {
       {@required this.name,
       @required this.start,
       this.hasBalance = false,
-      this.isSecondaryCurrency = false,
+        this.isSecondaryCurrency = false,
       this.dayEntries,
       this.iconData}) {
     this.dayEntries ??= [];
