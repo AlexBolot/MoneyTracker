@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:money_tracker/main.dart';
-import 'package:money_tracker/model/static_currency.dart';
+import 'package:money_tracker/model/entry.dart';
 import 'package:money_tracker/model/day_entry.dart';
 import 'package:money_tracker/model/wallet.dart';
+import 'package:money_tracker/widgets/add_entry_dialogue.dart';
 import 'package:money_tracker/widgets/day_card.dart';
 import 'package:money_tracker/widgets/money_text.dart';
 
@@ -23,73 +23,29 @@ class _WalletViewState extends State<WalletView> {
 
   @override
   void initState() {
-    entries = widget.wallet.dayEntries;
     isSecondary = widget.wallet.isSecondaryCurrency;
-
     super.initState();
   }
 
   @override
   Widget build(BuildContext context) {
+    entries = widget.wallet.dayEntries;
+
     return Stack(
       alignment: Alignment(1, 1),
       children: <Widget>[
         Container(
-          child: ListView(
-            children: buildItems(),
-          ),
+          child: ListView(children: buildItems()),
         ),
         Padding(
           padding: const EdgeInsets.all(32.0),
           child: FloatingActionButton(
             tooltip: "Ajouter un mouvement",
             child: Icon(Icons.add, size: 32),
-            onPressed: () {
-              showDialog(
-                context: context,
-                builder: (context) {
-                  return Dialog(
-                    shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
-                    child: Padding(
-                      padding: const EdgeInsets.all(16.0),
-                      child: Column(
-                        mainAxisSize: MainAxisSize.min,
-                        children: <Widget>[
-                          Padding(
-                            padding: const EdgeInsets.all(8.0),
-                            child: TextField(
-                              decoration: InputDecoration(
-                                labelText: 'Intitulé',
-                                border: OutlineInputBorder(),
-                                hintText: 'exemple : "cinéma"',
-                              ),
-                            ),
-                          ),
-                          Padding(
-                            padding: const EdgeInsets.all(8.0),
-                            child: TextField(
-                              decoration: InputDecoration(
-                                labelText: 'Montant',
-                                border: OutlineInputBorder(),
-                                hintText: 'exemple : "3.25"',
-                              ),
-                            ),
-                          ),
-                          Padding(
-                            padding: const EdgeInsets.all(8.0),
-                            child: RaisedButton(
-                              child: Text('save'),
-                              onPressed: () {
-                                Navigator.of(context).pop();
-                              },
-                            ),
-                          ),
-                        ],
-                      ),
-                    ),
-                  );
-                },
-              );
+            onPressed: () async {
+              Entry res = await showDialog(context: context, builder: (context) => AddEntryDialogue());
+              widget.wallet.addEntry(res);
+              setState(() {});
             },
           ),
         ),
@@ -108,6 +64,8 @@ class _WalletViewState extends State<WalletView> {
         isSecondary: isSecondary,
       ));
     }
+
+    items.add(Container(height: 110));
 
     return items;
   }

@@ -6,7 +6,10 @@ class DayEntry extends Comparable<DayEntry> {
   DateTime dateTime;
 
   double get totalSpent {
-    return entries.where((entry) => entry.isSpending).map((entry) => entry.amount).reduce(sum);
+    List<Entry> spendings = entries.where((entry) => entry.isSpending).toList();
+
+    if(spendings.isEmpty) return 0;
+    return spendings.map((entry) => entry.amount).reduce(sum);
   }
 
   double get totalIncome {
@@ -25,4 +28,11 @@ class DayEntry extends Comparable<DayEntry> {
 
   @override
   int compareTo(DayEntry other) => -dateTime.compareTo(other.dateTime);
+
+  @override
+  String toString() {
+    return '$dateTime';
+  }
+
+
 }

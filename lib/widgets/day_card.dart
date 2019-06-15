@@ -22,13 +22,13 @@ class _DayCardState extends State<DayCard> {
   @override
   void initState() {
     super.initState();
-
-    dateTime = widget.dayEntry.dateTime;
-    entryList = widget.dayEntry.entries;
   }
 
   @override
   Widget build(BuildContext context) {
+    dateTime = widget.dayEntry.dateTime;
+    entryList = widget.dayEntry.entries;
+
     return Card(
       elevation: 4,
       margin: EdgeInsets.only(left: 16, right: 16, top: 16),

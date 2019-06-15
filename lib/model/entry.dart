@@ -14,4 +14,10 @@ class Entry {
     this.factor = isIncome ? 1 : -1;
     this.dateTime ??= DateTime.now();
   }
+
+  @override
+  String toString() {
+    return 'Entry{name: $name, amount: $amount}';
+  }
+
 }

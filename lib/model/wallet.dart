@@ -30,7 +30,9 @@ class Wallet {
     if (dayEntries.first.isToday)
       dayEntries.first.entries.add(entry);
     else
-      dayEntries.insert(0, DayEntry(dateTime: DateTime.now(), entries: [entry]));
+      dayEntries.add(DayEntry(dateTime: DateTime.now(), entries: [entry]));
+
+    dayEntries.sort();
   }
 
   double averageSpending() {
