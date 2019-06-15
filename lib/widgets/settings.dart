@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:money_tracker/views/currency_setting_view.dart';
+import 'package:money_tracker/widgets/settings_currency.dart';
+
 class Settings extends StatefulWidget {
   @override
   _SettingsState createState() => _SettingsState();
@@ -17,32 +18,21 @@ class _SettingsState extends State<Settings> {
           child: ListView(
             children: <Widget>[
               ListTile(
-                  title: Text("Mes porte-monnaie"),
+
+                  title: Text("Mes porte-monnaie", style: new TextStyle(fontSize: 20 ),),
                   onTap: () {
                     print("Mes porte-monnaie");
                   }),
               ListTile(
-                  title: Text("Devises"),
+                  title: Text("Devises", style: new TextStyle(fontSize: 20 ),),
                   onTap: () {
-                    Navigator.pushReplacement(
-                    context, new MaterialPageRoute(builder: (BuildContext context) => new CurrencySettingView()));
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(builder: (context) => SettingsCurrency()),
+                    );
                   }),
-              SwitchListTile(
-                  value: true,
-                  title: Text("Affichage dans la devise secondaire"),
-                  onChanged: (value) {
-                    setState(() {
-                      value == !value;
-                      print ( "Affichage en devise secondaire : " + value.toString()  );
-                    });
-                  })
             ],
           )),
     );
   }
 }
-
-/*
- *               title: 
-              trailing: DisplaySecondCurrencyState(),
- */

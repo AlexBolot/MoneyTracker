@@ -5,12 +5,11 @@ import 'package:money_tracker/model/static_currency.dart';
 import 'package:money_tracker/model/wallet.dart';
 import 'package:money_tracker/views/global_view.dart';
 import 'package:money_tracker/views/splash_screen.dart';
-import 'package:money_tracker/views/currency_setting_view.dart';
 
 void main() {
   StaticCurrency.primary="\$";
   StaticCurrency.secondary="€";
-  StaticCurrency.changeRate=0.666;
+  StaticCurrency.changeRate=0.6666;
   runApp(MyApp());
 }
 
@@ -23,8 +22,7 @@ class MyApp extends StatelessWidget {
       routes: {
         '/': (context) => SplashScreen(),
         SplashScreen.routeName: (context) => SplashScreen(),
-        GlobalView.routeName: (context) => GlobalView(),
-        CurrencySettingView.routeName : (context) => CurrencySettingView(),
+        GlobalView.routeName: (context) => GlobalView()
       },
     );
   }
