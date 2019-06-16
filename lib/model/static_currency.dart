@@ -11,7 +11,7 @@ class StaticCurrency {
   static String format({@required double amount, bool isSecondary = false}) {
     double rate = isSecondary ? changeRate : 1;
     String amountString = (amount * rate).toStringAsFixed(2);
-    return isSecondary ? '$amountString ${secondary}' : '$amountString ${primary}';
+    return isSecondary ? '$amountString $secondary' : '$amountString $primary';
   }
 
 }

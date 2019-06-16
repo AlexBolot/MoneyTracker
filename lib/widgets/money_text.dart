@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:money_tracker/main.dart';
 import 'package:money_tracker/model/static_currency.dart';
 
 class MoneyText extends StatelessWidget {

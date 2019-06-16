@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:money_tracker/widgets/settings_currency.dart';
+import 'package:money_tracker/widgets/settings_wallets.dart';
 
 class Settings extends StatefulWidget {
   @override
@@ -21,7 +22,10 @@ class _SettingsState extends State<Settings> {
 
                   title: Text("Mes porte-monnaie", style: new TextStyle(fontSize: 20 ),),
                   onTap: () {
-                    print("Mes porte-monnaie");
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(builder: (context) => SettingsWallets()),
+                    );
                   }),
               ListTile(
                   title: Text("Devises", style: new TextStyle(fontSize: 20 ),),

@@ -43,7 +43,8 @@ class _WalletViewState extends State<WalletView> {
             tooltip: "Ajouter un mouvement",
             child: Icon(Icons.add, size: 32),
             onPressed: () async {
-              Entry res = await showDialog(context: context, builder: (context) => AddEntryDialogue());
+              Entry res = await showDialog(
+                  context: context, builder: (context) => AddEntryDialogue());
               widget.wallet.addEntry(res);
               setState(() {});
             },
@@ -71,7 +72,6 @@ class _WalletViewState extends State<WalletView> {
   }
 
   Widget balanceCard() {
-    double balance = widget.wallet.balance;
 
     return Card(
       elevation: 8,
@@ -79,29 +79,37 @@ class _WalletViewState extends State<WalletView> {
       child: Padding(
         padding: const EdgeInsets.all(16.0),
         child: Column(
-          mainAxisSize: MainAxisSize.min,
-          crossAxisAlignment: CrossAxisAlignment.center,
-          children: <Widget>[
-            MoneyText(
-              text: 'Solde',
-              amount: balance,
-              isSecondary: isSecondary,
-              style: TextStyle(
-                fontSize: 28,
-                fontWeight: FontWeight.bold,
-                color: balance.isNegative ? Colors.red : Colors.green,
-              ),
-            ),
-            Container(width: 100, child: Divider(color: Colors.grey[700])),
-            MoneyText(
-              text: 'Dépense moyenne',
-              amount: widget.wallet.averageSpending(),
-              isSecondary: isSecondary,
-              style: TextStyle(fontSize: 18, fontStyle: FontStyle.italic, color: Colors.grey),
-            ),
-          ],
-        ),
+            mainAxisSize: MainAxisSize.min,
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: Solde()),
       ),
     );
+  }
+
+  List<Widget> Solde() {
+    List<Widget> items = [];
+
+    if (widget.wallet.hasBalance) {
+      items.add(MoneyText(
+          text: 'Solde',
+          amount: widget.wallet.balance,
+          isSecondary: isSecondary,
+          style: TextStyle(
+            fontSize: 28,
+            fontWeight: FontWeight.bold,
+            color: widget.wallet.balance.isNegative ? Colors.red : Colors.green,
+          )));
+      items.add(Divider());
+    }
+
+    items.add(MoneyText(
+      text: 'Dépense moyenne',
+      amount: widget.wallet.averageSpending(),
+      isSecondary: isSecondary,
+      style: TextStyle(
+          fontSize: 18),
+    ));
+
+    return items;
   }
 }

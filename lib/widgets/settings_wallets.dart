@@ -1,11 +1,9 @@
-/*
-
 import 'package:flutter/material.dart';
 import 'package:money_tracker/model/wallet.dart';
 import 'package:money_tracker/widgets/wallet_card.dart';
 import 'package:money_tracker/main.dart';
-class SettingsWallets extends StatefulWidget {
 
+class SettingsWallets extends StatefulWidget {
   @override
   _SettingsWalletsState createState() => _SettingsWalletsState();
 }
@@ -31,9 +29,8 @@ class _SettingsWalletsState extends State<SettingsWallets> {
 List<Widget> buildItems() {
   List<Widget> items = [];
   for (Wallet wallet in wallets )  {
-    items.add(WalletCard( wallet ));
+    items.add(WalletCard(wallet : wallet ));
   }
   return items;
 }
 
- */

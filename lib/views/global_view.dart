@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:money_tracker/main.dart';
-import 'package:money_tracker/model/day_entry.dart';
-import 'package:money_tracker/model/entry.dart';
 import 'package:money_tracker/model/wallet.dart';
 import 'package:money_tracker/views/recap_view.dart';
 import 'package:money_tracker/views/wallet_view.dart';

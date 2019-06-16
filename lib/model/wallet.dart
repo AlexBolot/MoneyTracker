@@ -36,7 +36,8 @@ class Wallet {
   }
 
   double averageSpending() {
+    int nbDays = 1+DateTime.now().difference(start).inDays;
     double total = dayEntries.map((entry) => entry.totalSpent).reduce(sum);
-    return total / dayEntries.length;
+    return total / nbDays;
   }
 }
