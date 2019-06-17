@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:money_tracker/main.dart';
 import 'package:money_tracker/model/wallet.dart';
 import 'package:intl/intl.dart';
 import 'package:money_tracker/model/static_currency.dart';
 import 'package:money_tracker/widgets/money_text.dart';
+import 'package:flutter_stash/flutter_stash.dart';
 
 class WalletCard extends StatefulWidget {
   final Wallet wallet;
@@ -53,34 +53,26 @@ class _WalletCardState extends State<WalletCard> {
         crossAxisAlignment: CrossAxisAlignment.center,
         children: <Widget>[
           Icon(iconData),
-          Container(
-            width: 10,
-          ),
+          Container(width: 10),
+          Text(name, style: TextStyle(fontSize: 20.0)),
+          Container(width: 10),
           Text(
-            name,
-            style: TextStyle(fontSize: 20.0),
-          ),
-          Container(
-            width: 10,
-          ),
-          Text(
-            (isSecondaryCurrency
-                ? StaticCurrency.secondary
-                : StaticCurrency.primary),
+            (isSecondaryCurrency ? StaticCurrency.secondary : StaticCurrency.primary),
             style: TextStyle(fontSize: 20.0),
           )
         ],
       ),
     );
+
     items.add(Divider());
+
     items.add(Text(
-      "Depuis le " +
-          toFirstUpper(
-            DateFormat("EEEEE dd/MM", "fr").format(start),
-          ),
+      "Depuis le " + toFirstUpper(DateFormat("EEEEE dd/MM", "fr").format(start)),
       style: TextStyle(fontSize: 16.0),
     ));
+
     items.add(Divider());
+
     if (hasBalance) {
       items.add(Row(
         mainAxisAlignment: MainAxisAlignment.end,

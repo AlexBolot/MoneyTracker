@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:money_tracker/main.dart';
 import 'package:money_tracker/model/day_entry.dart';
 import 'package:money_tracker/model/entry.dart';
 import 'package:intl/intl.dart';
 import 'package:money_tracker/widgets/money_text.dart';
+import 'package:flutter_stash/flutter_stash.dart';
 
 class DayCard extends StatefulWidget {
   final DayEntry dayEntry;

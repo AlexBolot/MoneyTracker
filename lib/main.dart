@@ -1,43 +1,45 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_stash/flutter_stash.dart';
 import 'package:money_tracker/model/day_entry.dart';
 import 'package:money_tracker/model/entry.dart';
 import 'package:money_tracker/model/static_currency.dart';
 import 'package:money_tracker/model/wallet.dart';
+import 'package:money_tracker/services/wallet_service.dart';
 import 'package:money_tracker/views/global_view.dart';
-import 'package:money_tracker/views/splash_screen.dart';
+import 'package:intl/date_symbol_data_local.dart' as intl;
+import 'package:path_provider/path_provider.dart';
 
 void main() {
-  StaticCurrency.primary="\$";
-  StaticCurrency.secondary="€";
-  StaticCurrency.changeRate=0.6666;
+  StaticCurrency.primary = "\$";
+  StaticCurrency.secondary = "€";
+  StaticCurrency.changeRate = 0.6666;
   runApp(MyApp());
 }
 
 class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
+    String applicationName = 'Money Tracker';
+
+    buildSplashScreen() => SplashScreen(title: applicationName,
+        nextRouteName: GlobalView.routeName,
+        loadFunctions: [
+          () async => await intl.initializeDateFormatting("fr", null),
+          () async => WalletService.documentsPath = (await getApplicationDocumentsDirectory()).path,
+          () async => WalletService.readWallets(),
+        ]);
+
     return MaterialApp(
-      title: 'Flutter Demo',
+      title: applicationName,
       debugShowCheckedModeBanner: false,
       routes: {
-        '/': (context) => SplashScreen(),
-        SplashScreen.routeName: (context) => SplashScreen(),
-        GlobalView.routeName: (context) => GlobalView()
+        '/': (context) => buildSplashScreen(),
+        SplashScreen.routeName: (context) => buildSplashScreen(),
+        GlobalView.routeName: (context) => GlobalView(),
       },
     );
   }
 }
-
-Color contrastOf(Color background) {
-  var brightness = ThemeData.estimateBrightnessForColor(background);
-  return brightness == Brightness.light ? Colors.black : Colors.white;
-}
-
-String toFirstUpper(String string) {
-  return string[0].toUpperCase() + string.substring(1).toLowerCase();
-}
-
-double sum(double a, double b) => a + b;
 
 List<Wallet> wallets = [
   Wallet(

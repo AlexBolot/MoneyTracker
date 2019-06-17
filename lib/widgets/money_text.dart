@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_stash/flutter_stash.dart';
 import 'package:money_tracker/model/static_currency.dart';
 
 class MoneyText extends StatelessWidget {
@@ -12,17 +13,14 @@ class MoneyText extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-
     String currentAmount = StaticCurrency.format(amount: amount, isSecondary: isSecondary);
     String calculatedAmount = StaticCurrency.format(amount: amount, isSecondary: !isSecondary);
 
-    return Tooltip(
-      message: '$currentAmount = $calculatedAmount',
-      child: Text(
-        '$text $currentAmount',
-        style: style,
-        textAlign: textAlign ?? TextAlign.center,
-      ),
+    return TooltipText(
+      text: '$text $currentAmount',
+      tooltip: '$currentAmount = $calculatedAmount',
+      style: style,
+      textAlign: textAlign ?? TextAlign.center,
     );
   }
 }
