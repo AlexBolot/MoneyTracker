@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:money_tracker/main.dart';
 import 'package:flutter_stash/flutter_stash.dart';
-import 'package:money_tracker/model/static_currency.dart';
 
 class MoneyText extends StatelessWidget {
   final String text;
@@ -13,8 +13,9 @@ class MoneyText extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    String currentAmount = StaticCurrency.format(amount: amount, isSecondary: isSecondary);
-    String calculatedAmount = StaticCurrency.format(amount: amount, isSecondary: !isSecondary);
+
+    String currentAmount = trip.currency.format(amount: amount, isSecondary: isSecondary);
+    String calculatedAmount = trip.currency.format(amount: amount, isSecondary: !isSecondary);
 
     return TooltipText(
       text: '$text $currentAmount',

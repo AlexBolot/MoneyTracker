@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:money_tracker/model/static_currency.dart';
+import 'package:money_tracker/main.dart';
 
 class SettingsCurrency extends StatefulWidget {
   @override
@@ -7,11 +7,11 @@ class SettingsCurrency extends StatefulWidget {
 }
 
 class _SettingsCurrencyState extends State<SettingsCurrency> {
-  final primaryController = TextEditingController(text: StaticCurrency.primary);
+  final primaryController = TextEditingController(text: trip.currency.primary);
   final secondaryController =
-      TextEditingController(text: StaticCurrency.secondary);
+      TextEditingController(text: trip.currency.secondary);
   final changeRateController =
-      TextEditingController(text: StaticCurrency.changeRate.toString());
+      TextEditingController(text: trip.currency.changeRate.toString());
 
   @override
   void dispose() {
@@ -61,9 +61,9 @@ class _SettingsCurrencyState extends State<SettingsCurrency> {
                   color: Colors.blue,
                   textColor: Colors.white,
                   onPressed: () {
-                    StaticCurrency.primary = primaryController.text;
-                    StaticCurrency.secondary = secondaryController.text;
-                    StaticCurrency.changeRate = double.parse((changeRateController.text).replaceAll(",", "."));
+                    trip.currency.primary = primaryController.text;
+                    trip.currency.secondary = secondaryController.text;
+                    trip.currency.changeRate = double.parse((changeRateController.text).replaceAll(",", "."));
                     Navigator.of(context, rootNavigator: true).pop('dialog');
                   })
             ],

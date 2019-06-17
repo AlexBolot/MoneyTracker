@@ -15,7 +15,6 @@ class WalletService {
     iconData: Icons.account_balance_wallet,
     isSecondaryCurrency: true,
     hasBalance: false,
-    start: DateTime.now().add(Duration(days: -5)),
     dayEntries: [
       DayEntry(dateTime: DateTime.now(), entries: [
         Entry(name: 'Glaces', amount: 2.3),
@@ -36,7 +35,6 @@ class WalletService {
       iconData: Icons.account_balance_wallet,
       isSecondaryCurrency: false,
       hasBalance: true,
-      start: DateTime.now().add(Duration(days: -3)),
       dayEntries: [
         DayEntry(dateTime: DateTime.now().add(Duration(days: -1)), entries: [
           Entry(name: 'Glaces', amount: 2.3),

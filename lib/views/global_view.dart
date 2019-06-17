@@ -23,7 +23,7 @@ class _GlobalViewState extends State<GlobalView> with SingleTickerProviderStateM
   @override
   void initState() {
     super.initState();
-    tabController = TabController(length: wallets.length + 1, vsync: this);
+    tabController = TabController(length: trip.wallets.length + 1, vsync: this);
   }
 
   @override
@@ -56,7 +56,7 @@ class _GlobalViewState extends State<GlobalView> with SingleTickerProviderStateM
 
     tabs.add(DescriptionTab(text: '', iconData: Icons.home));
 
-    for (Wallet wallet in wallets) {
+    for (Wallet wallet in trip.wallets) {
       tabs.add(DescriptionTab(text: wallet.name, iconData: wallet.iconData));
     }
 
@@ -68,7 +68,7 @@ class _GlobalViewState extends State<GlobalView> with SingleTickerProviderStateM
 
     views.add(HomeView());
 
-    for (Wallet wallet in wallets) {
+    for (Wallet wallet in trip.wallets) {
       views.add(WalletView(wallet: wallet));
     }
 

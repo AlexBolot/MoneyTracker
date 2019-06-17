@@ -1,13 +1,11 @@
-import 'dart:convert';
-
 import 'package:flutter/material.dart';
 import 'package:money_tracker/model/day_entry.dart';
 import 'package:money_tracker/model/entry.dart';
+import 'package:money_tracker/main.dart';
 import 'package:flutter_stash/flutter_stash.dart';
 
 class Wallet {
   String name;
-  DateTime start;
   bool hasBalance;
   bool isSecondaryCurrency;
   List<DayEntry> dayEntries;
@@ -15,7 +13,6 @@ class Wallet {
 
   Wallet(
       {@required this.name,
-      @required this.start,
       this.hasBalance = false,
       this.isSecondaryCurrency = false,
       this.dayEntries,
@@ -24,9 +21,12 @@ class Wallet {
     this.dayEntries.sort();
   }
 
+  double get totalSpent {
+    return dayEntries.map((entry) => entry.totalSpent).reduce(sum);
+  }
+
   Wallet.fromMap(Map map) {
     name = map['name'];
-    start = DateTime.parse(map['start']);
     hasBalance = map['hasBalance'] as bool;
     isSecondaryCurrency = map['isSecondaryCurrency'] as bool;
     iconData = IconData(map['iconData']);
@@ -48,7 +48,7 @@ class Wallet {
   }
 
   double averageSpending() {
-    int nbDays = 1 + DateTime.now().difference(start).inDays;
+    int nbDays = 1+DateTime.now().difference(trip.start).inDays;
     double total = dayEntries.map((entry) => entry.totalSpent).reduce(sum);
     return total / nbDays;
   }
@@ -56,7 +56,6 @@ class Wallet {
   Map toMap() {
     return {
       'name': name,
-      'start': start.toIso8601String(),
       'hasBalance': hasBalance,
       'isSecondaryCurrency': isSecondaryCurrency,
       'iconData': iconData.codePoint,
@@ -66,7 +65,7 @@ class Wallet {
 
   @override
   String toString() {
-    return 'Wallet{name: $name, start: $start, hasBalance: $hasBalance, isSecondaryCurrency: $isSecondaryCurrency, dayEntries: $dayEntries, iconData: $iconData}';
+    return 'Wallet{name: $name, hasBalance: $hasBalance, isSecondaryCurrency: $isSecondaryCurrency, dayEntries: $dayEntries, iconData: $iconData}';
   }
 
 

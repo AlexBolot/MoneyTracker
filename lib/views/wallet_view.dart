@@ -109,6 +109,14 @@ class _WalletViewState extends State<WalletView> {
       style: TextStyle(fontSize: 18),
     ));
 
+/*    items.add(MoneyText(
+      text: 'Dépense totale',
+      amount: widget.wallet.totalSpent,
+      isSecondary: isSecondary,
+      style: TextStyle(
+          fontSize: 18),
+    ));
+*/
     return items;
   }
 }

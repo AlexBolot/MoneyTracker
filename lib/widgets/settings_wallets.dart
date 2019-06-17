@@ -28,7 +28,7 @@ class _SettingsWalletsState extends State<SettingsWallets> {
 
 List<Widget> buildItems() {
   List<Widget> items = [];
-  for (Wallet wallet in wallets )  {
+  for (Wallet wallet in trip.wallets )  {
     items.add(WalletCard(wallet : wallet ));
   }
   return items;
