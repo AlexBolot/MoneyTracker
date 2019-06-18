@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:money_tracker/main.dart';
+import 'package:money_tracker/services/wallet_service.dart';
 import 'package:flutter_stash/flutter_stash.dart';
 
 class MoneyText extends StatelessWidget {

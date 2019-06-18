@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:money_tracker/model/day_entry.dart';
 import 'package:money_tracker/model/entry.dart';
-import 'package:money_tracker/main.dart';
+import 'package:money_tracker/services/wallet_service.dart';
 import 'package:flutter_stash/flutter_stash.dart';
 
 class Wallet {
@@ -48,7 +48,7 @@ class Wallet {
   }
 
   double averageSpending() {
-    int nbDays = 1+DateTime.now().difference(trip.start).inDays;
+    int nbDays = 1 + DateTime.now().difference(trip.start).inDays;
     double total = dayEntries.map((entry) => entry.totalSpent).reduce(sum);
     return total / nbDays;
   }
@@ -67,6 +67,4 @@ class Wallet {
   String toString() {
     return 'Wallet{name: $name, hasBalance: $hasBalance, isSecondaryCurrency: $isSecondaryCurrency, dayEntries: $dayEntries, iconData: $iconData}';
   }
-
-
 }

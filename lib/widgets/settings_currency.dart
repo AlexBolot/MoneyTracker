@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:money_tracker/main.dart';
+import 'package:money_tracker/services/wallet_service.dart';
 
 class SettingsCurrency extends StatefulWidget {
   @override

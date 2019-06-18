@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:money_tracker/widgets/money_text.dart';
-import 'package:money_tracker/main.dart';
-//import 'package:flutter_stash/flutter_stash.dart';
+import 'package:money_tracker/services/wallet_service.dart';
 
 class HomeView extends StatefulWidget {
   static const String routeName = "/HomeView";
