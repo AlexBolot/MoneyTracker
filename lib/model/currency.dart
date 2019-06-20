@@ -17,9 +17,20 @@ class Currency {
 
   bool isSecondary(String currency) => currency == secondary;
 
-  String format({@required double amount, bool isSecondary = false}) {
+  double toCurrency({@required double amount, bool isSecondary = false})
+  {
     double rate = isSecondary ? changeRate : 1;
-    String amountString = (amount * rate).toStringAsFixed(2);
+    return (amount * rate);
+  }
+
+  double toPrimary({@required double amount, bool isSecondary = false})
+  {
+    double rate = isSecondary ? changeRate : 1;
+    return (amount / rate);
+  }
+
+  String format({@required double amount, bool isSecondary = false}) {
+    String amountString = (toCurrency(amount: amount, isSecondary: isSecondary )).toStringAsFixed(2);
     return isSecondary ? '$amountString $secondary' : '$amountString $primary';
   }
 

@@ -2,8 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:money_tracker/model/day_entry.dart';
 import 'package:money_tracker/model/entry.dart';
 import 'package:intl/intl.dart';
+import 'package:money_tracker/widgets/crud_entry_dialogue.dart';
 import 'package:money_tracker/widgets/money_text.dart';
 import 'package:flutter_stash/flutter_stash.dart';
+import 'package:money_tracker/services/wallet_service.dart';
 
 class DayCard extends StatefulWidget {
   final DayEntry dayEntry;
@@ -75,11 +77,37 @@ class _DayCardState extends State<DayCard> {
         mainAxisSize: MainAxisSize.max,
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: <Widget>[
-          Text(entry.name, style: TextStyle(fontSize: 18.0)),
+          InkWell(
+            onTap: () async {
+              Entry res = await showDialog(
+                  context: context,
+                  builder: (context) => CrudEntryDialogue(
+                        entry: entry,
+                        isSecondary: widget.isSecondary,
+                      ));
+              if (res == null) return;
+              if (res.name=="" && res.amount == 0) {
+                entryList.remove(entry);
+              } else {
+                entry.name = res.name;
+                entry.amount = trip.currency.toPrimary(
+                    amount: res.amount, isSecondary: widget.isSecondary);
+                entry.isIncome = res.isIncome;
+              }
+              WalletService.saveWallets();
+              setState(() {});
+            },
+            child: Text(
+              entry.name,
+              style: TextStyle(fontSize: 18.0),
+            ),
+          ),
           MoneyText(
             amount: entry.amount,
             isSecondary: widget.isSecondary,
-            style: TextStyle(fontSize: 18.0, color: entry.isSpending ? Colors.red : Colors.green),
+            style: TextStyle(
+                fontSize: 18.0,
+                color: entry.isSpending ? Colors.red : Colors.green),
           ),
         ],
       ),

@@ -70,9 +70,14 @@ class WalletService {
   static readWallets() async {
     File file = File('$documentsPath/wallets.json');
 
-    Map map = json.decode(await file.readAsString());
-
-    trip = Trip.fromMap(map);
+    print('file : $documentsPath/wallets.json');
+    if (file.exists == true) {
+      Map map = json.decode(await file.readAsString());
+      trip = Trip.fromMap(map);
+    } else {
+      file.create(recursive: true);
+      initTrip();
+    }
   }
 }
 

@@ -3,7 +3,7 @@ import 'package:money_tracker/model/entry.dart';
 import 'package:money_tracker/model/day_entry.dart';
 import 'package:money_tracker/model/wallet.dart';
 import 'package:money_tracker/services/wallet_service.dart';
-import 'package:money_tracker/widgets/add_entry_dialogue.dart';
+import 'package:money_tracker/widgets/crud_entry_dialogue.dart';
 import 'package:money_tracker/widgets/day_card.dart';
 import 'package:money_tracker/widgets/money_text.dart';
 
@@ -44,10 +44,10 @@ class _WalletViewState extends State<WalletView> {
             tooltip: "Ajouter un mouvement",
             child: Icon(Icons.add, size: 32),
             onPressed: () async {
-              Entry res = await showDialog(context: context, builder: (context) => AddEntryDialogue());
+              Entry res = await showDialog(context: context, builder: (context) => CrudEntryDialogue(isSecondary: widget.wallet.isSecondaryCurrency,));
 
               if(res == null) return;
-
+              res.amount = trip.currency.toPrimary(amount: res.amount, isSecondary: widget.wallet.isSecondaryCurrency);
               widget.wallet.addEntry(res);
               WalletService.saveWallets();
               setState(() {});

@@ -2,15 +2,29 @@ import 'package:flutter/material.dart';
 
 class Entry {
   String name;
-  double amount;
-  int factor;
+
+  double _amount = 0;
+  int factor = 1;
   DateTime dateTime;
+  bool _isIncome = true;
 
-  bool get isSpending => factor < 0;
+  set amount(double entryAmount)
+  {
+    _amount = entryAmount;
+  }
+  double get amount => _amount;
 
+  set isIncome ( bool entryIsIncome)
+  {
+    if (_isIncome!=entryIsIncome) factor = -factor;
+  }
   bool get isIncome => factor > 0;
 
-  Entry({@required this.name, @required this.amount, bool isIncome = false}) {
+  bool get isSpending => !isIncome;
+
+  Entry({@required this.name, @required double amount, bool isIncome = false}) {
+    _amount = amount;
+    _isIncome = isIncome;
     this.factor = isIncome ? 1 : -1;
     this.dateTime = DateTime.now();
   }
