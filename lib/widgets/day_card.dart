@@ -83,15 +83,13 @@ class _DayCardState extends State<DayCard> {
                   context: context,
                   builder: (context) => CrudEntryDialogue(
                         entry: entry,
-                        isSecondary: widget.isSecondary,
                       ));
               if (res == null) return;
-              if (res.name=="" && res.amount == 0) {
+              if (res.name == "" && res.amount == 0) {
                 entryList.remove(entry);
               } else {
                 entry.name = res.name;
-                entry.amount = trip.currency.toPrimary(
-                    amount: res.amount, isSecondary: widget.isSecondary);
+                entry.amount = res.amount;
                 entry.isIncome = res.isIncome;
               }
               WalletService.saveWallets();

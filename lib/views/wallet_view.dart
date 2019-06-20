@@ -44,10 +44,10 @@ class _WalletViewState extends State<WalletView> {
             tooltip: "Ajouter un mouvement",
             child: Icon(Icons.add, size: 32),
             onPressed: () async {
-              Entry res = await showDialog(context: context, builder: (context) => CrudEntryDialogue(isSecondary: widget.wallet.isSecondaryCurrency,));
+              Entry res = await showDialog(context: context, builder: (context) => CrudEntryDialogue());
 
               if(res == null) return;
-              res.amount = trip.currency.toPrimary(amount: res.amount, isSecondary: widget.wallet.isSecondaryCurrency);
+
               widget.wallet.addEntry(res);
               WalletService.saveWallets();
               setState(() {});
