@@ -15,13 +15,14 @@ class _HomeViewState extends State<HomeView> {
     return Container(
       child: Card(
         elevation: 8,
-        margin: EdgeInsets.only(top: 16, left: 16, right: 16),
+        margin: EdgeInsets.all(16),
         child: Padding(
           padding: const EdgeInsets.all(16.0),
           child: Column(
-              mainAxisSize: MainAxisSize.min,
-              crossAxisAlignment: CrossAxisAlignment.center,
-              children: Recap()),
+            mainAxisSize: MainAxisSize.min,
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: Recap(),
+          ),
         ),
       ),
     );
@@ -32,24 +33,47 @@ List<Widget> Recap() {
   List<Widget> items = [];
   //double totalSpend = trip.wallets.map((wallet) => wallet.totalSpent).reduce(sum);
 
-  items.add(Text(trip.name,
-      style: TextStyle(
-          fontSize: 28,
-          fontWeight: FontWeight.bold,
-          color: Colors.blueAccent)));
-  items.add(Divider());
-  items.add(MoneyText(
-    text: 'Dépense totale',
-    amount: trip.totalSpent,
-    isSecondary: false,
-    style: TextStyle(fontSize: 18),
+  items.add(Text(
+    trip.name,
+    style: TextStyle(
+      fontSize: 28,
+      fontWeight: FontWeight.bold,
+      color: Colors.blueAccent,
+    ),
   ));
+
   items.add(Divider());
-  items.add(MoneyText(
-    text: 'Dépense moyenne',
-    amount: trip.averageSpending(),
-    isSecondary: false,
-    style: TextStyle(fontSize: 18),
+
+  items.add(Container(
+    padding: EdgeInsets.symmetric(horizontal: 48),
+    child: Row(
+      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+      children: <Widget>[
+        Text('Dépense totale', style: TextStyle(fontSize: 18)),
+        MoneyText(
+          amount: trip.totalSpent,
+          isSecondary: false,
+          style: TextStyle(fontSize: 18),
+        ),
+      ],
+    ),
+  ));
+
+  items.add(Divider());
+
+  items.add(Container(
+    padding: EdgeInsets.symmetric(horizontal: 48),
+    child: Row(
+      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+      children: <Widget>[
+        Text('Dépense moyenne', style: TextStyle(fontSize: 18)),
+        MoneyText(
+          amount: trip.averageSpending(),
+          isSecondary: false,
+          style: TextStyle(fontSize: 18),
+        ),
+      ],
+    ),
   ));
 
   return items;

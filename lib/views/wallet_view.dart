@@ -35,9 +35,7 @@ class _WalletViewState extends State<WalletView> {
     return Stack(
       alignment: Alignment(1, 1),
       children: <Widget>[
-        Container(
-          child: ListView(children: buildItems()),
-        ),
+        Container(child: ListView(children: buildItems())),
         Padding(
           padding: const EdgeInsets.all(32.0),
           child: FloatingActionButton(
@@ -46,7 +44,7 @@ class _WalletViewState extends State<WalletView> {
             onPressed: () async {
               Entry res = await showDialog(context: context, builder: (context) => CrudEntryDialogue());
 
-              if(res == null) return;
+              if (res == null) return;
 
               widget.wallet.addEntry(res);
               WalletService.saveWallets();
@@ -81,24 +79,29 @@ class _WalletViewState extends State<WalletView> {
       margin: EdgeInsets.only(top: 16, left: 16, right: 16),
       child: Padding(
         padding: const EdgeInsets.all(16.0),
-        child: Column(mainAxisSize: MainAxisSize.min, crossAxisAlignment: CrossAxisAlignment.center, children: Solde()),
+        child: Column(
+          mainAxisSize: MainAxisSize.min,
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: balance(),
+        ),
       ),
     );
   }
 
-  List<Widget> Solde() {
+  List<Widget> balance() {
     List<Widget> items = [];
 
     if (widget.wallet.hasBalance) {
       items.add(MoneyText(
-          text: 'Solde',
-          amount: widget.wallet.balance,
-          isSecondary: isSecondary,
-          style: TextStyle(
-            fontSize: 28,
-            fontWeight: FontWeight.bold,
-            color: widget.wallet.balance.isNegative ? Colors.red : Colors.green,
-          )));
+        text: 'Solde',
+        amount: widget.wallet.balance,
+        isSecondary: isSecondary,
+        style: TextStyle(
+          fontSize: 28,
+          fontWeight: FontWeight.bold,
+          color: widget.wallet.balance.isNegative ? Colors.red : Colors.green,
+        ),
+      ));
       items.add(Divider());
     }
 
@@ -106,17 +109,9 @@ class _WalletViewState extends State<WalletView> {
       text: 'Dépense moyenne',
       amount: widget.wallet.averageSpending(),
       isSecondary: isSecondary,
-      style: TextStyle(fontSize: 18),
+      style: TextStyle(fontSize: widget.wallet.hasBalance ? 18 : 25),
     ));
 
-/*    items.add(MoneyText(
-      text: 'Dépense totale',
-      amount: widget.wallet.totalSpent,
-      isSecondary: isSecondary,
-      style: TextStyle(
-          fontSize: 18),
-    ));
-*/
     return items;
   }
 }

@@ -9,28 +9,22 @@ class SettingsWallets extends StatefulWidget {
 }
 
 class _SettingsWalletsState extends State<SettingsWallets> {
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: Text("Mes porte-monnaie"),
-      ),
+      appBar: AppBar(title: Text("Mes porte-monnaie")),
       body: Container(
-          margin: EdgeInsets.all(16),
-          child: ListView(
-            children: buildItems(),
-          )),
+        margin: EdgeInsets.all(16),
+        child: ListView(children: buildItems()),
+      ),
     );
   }
 }
 
-
 List<Widget> buildItems() {
   List<Widget> items = [];
-  for (Wallet wallet in trip.wallets )  {
-    items.add(WalletCard(wallet : wallet ));
+  for (Wallet wallet in trip.wallets) {
+    items.add(WalletCard(wallet: wallet));
   }
   return items;
 }
-

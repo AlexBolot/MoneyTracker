@@ -11,32 +11,22 @@ class _SettingsState extends State<Settings> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: Text("Paramètres"),
-      ),
+      appBar: AppBar(title: Text("Paramètres")),
       body: Container(
-          margin: EdgeInsets.all(16),
-          child: ListView(
-            children: <Widget>[
-              ListTile(
-
-                  title: Text("Mes porte-monnaie", style: new TextStyle(fontSize: 20 ),),
-                  onTap: () {
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(builder: (context) => SettingsWallets()),
-                    );
-                  }),
-              ListTile(
-                  title: Text("Devises", style: new TextStyle(fontSize: 20 ),),
-                  onTap: () {
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(builder: (context) => SettingsCurrency()),
-                    );
-                  }),
-            ],
-          )),
+        margin: EdgeInsets.all(16),
+        child: ListView(
+          children: <Widget>[
+            ListTile(
+              title: Text("Mes porte-monnaie", style: TextStyle(fontSize: 20)),
+              onTap: () => Navigator.push(context, MaterialPageRoute(builder: (context) => SettingsWallets())),
+            ),
+            ListTile(
+              title: Text("Devises", style: TextStyle(fontSize: 20)),
+              onTap: () => Navigator.push(context, MaterialPageRoute(builder: (context) => SettingsCurrency())),
+            ),
+          ],
+        ),
+      ),
     );
   }
 }

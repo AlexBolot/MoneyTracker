@@ -13,11 +13,18 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     String applicationName = 'Money Tracker';
-    buildSplashScreen() => SplashScreen(title: applicationName, nextRouteName: GlobalView.routeName, loadFunctions: [
-          () async => await intl.initializeDateFormatting("fr", null),
-          () async => WalletService.documentsPath = (await getApplicationDocumentsDirectory()).path,
-          () async => WalletService.readWallets(),
-        ]);
+    buildSplashScreen() => SplashScreen(
+          title: applicationName,
+          nextRouteName: GlobalView.routeName,
+          loadFunctions: [
+            () async => await intl.initializeDateFormatting("fr", null),
+            () async => WalletService.documentsPath = (await getApplicationDocumentsDirectory()).path,
+            //() async => WalletService.initRealTrip(),
+            //() async => WalletService.saveWallets(),
+            () async => WalletService.readWallets(),
+          ],
+          nextRoute: MaterialPageRoute(builder: (context) => GlobalView()),
+        );
 
     return MaterialApp(
       title: applicationName,

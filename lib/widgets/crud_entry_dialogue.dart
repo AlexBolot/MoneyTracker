@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:money_tracker/model/entry.dart';
 import 'package:money_tracker/services/wallet_service.dart';
+import 'package:flutter_stash/flutter_stash.dart';
 
 class CrudEntryDialogue extends StatefulWidget {
   final Entry entry;
@@ -30,20 +31,19 @@ class _CrudEntryDialogueState extends State<CrudEntryDialogue> {
       modif = true;
     }
     return Dialog(
-      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
+      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
       child: Padding(
         padding: const EdgeInsets.all(16.0),
         child: Column(
           mainAxisSize: MainAxisSize.min,
           children: <Widget>[
             Padding(
-              padding: const EdgeInsets.all(8.0),
+              padding: const EdgeInsets.symmetric(vertical: 8.0),
               child: TextField(
                 autofocus: true,
                 controller: nameController,
                 textCapitalization: TextCapitalization.sentences,
-                onSubmitted: (_) =>
-                    FocusScope.of(context).requestFocus(amountNode),
+                onSubmitted: (_) => FocusScope.of(context).requestFocus(amountNode),
                 decoration: InputDecoration(
                   labelText: 'Intitulé',
                   border: OutlineInputBorder(),
@@ -52,11 +52,10 @@ class _CrudEntryDialogueState extends State<CrudEntryDialogue> {
               ),
             ),
             Padding(
-              padding: const EdgeInsets.all(8.0),
+              padding: const EdgeInsets.symmetric(vertical: 8.0),
               child: TextField(
                 focusNode: amountNode,
-                keyboardType: TextInputType.numberWithOptions(
-                    decimal: true, signed: true),
+                keyboardType: TextInputType.numberWithOptions(decimal: true, signed: true),
                 controller: amountController,
                 decoration: InputDecoration(
                   labelText: 'Montant en ' + trip.currency.primary,
@@ -67,60 +66,43 @@ class _CrudEntryDialogueState extends State<CrudEntryDialogue> {
             ),
             Row(
               children: <Widget>[
-                Checkbox(
-                    value: isIncome,
-                    onChanged: (bool value) =>
-                        setState(() => this.isIncome = value)),
+                Checkbox(value: isIncome, onChanged: (bool value) => setState(() => this.isIncome = value)),
                 Text("Apport"),
               ],
             ),
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: buttons(
-                  context, modif, isIncome, nameController, amountController),
+              children: buildButtons(),
             ),
           ],
         ),
       ),
     );
   }
-}
 
-List<Widget> buttons(
-    BuildContext context,
-    bool modif,
-    bool isIncome,
-    TextEditingController nameController,
-    TextEditingController amountController) {
-  List<Widget> items = [];
+  List<Widget> buildButtons() {
+    List<Widget> items = [];
 
-  if (modif) {
+    if (modif) {
+      items.add(RaisedButton(
+        padding: EdgeInsets.all(4),
+        color: Colors.red,
+        child: Icon(Icons.delete, size: 32, color: contrastOf(Colors.red)),
+        onPressed: () => Navigator.of(context).pop(Entry(name: '', amount: 0)), // si nom vide et 0 -> suppression
+      ));
+    }
+
     items.add(RaisedButton(
-      color: Colors.orangeAccent,
-      child: Icon(
-        Icons.delete,
-        size: 32,
-      ),
+      padding: EdgeInsets.all(4),
+      color: Colors.green,
+      child: Icon(Icons.check, size: 32, color: contrastOf(Colors.green)),
       onPressed: () {
-        Navigator.of(context)
-            .pop(Entry(name: "", amount: 0)); // si nom vide et 0 > suppression
+        double amount = double.parse(amountController.text.trim().replaceAll(',', '.'));
+        String name = nameController.text.trim();
+        Navigator.of(context).pop(Entry(amount: amount, name: name, isIncome: isIncome));
       },
     ));
+
+    return items;
   }
-
-  items.add(RaisedButton(
-    color: Colors.greenAccent,
-    child: Icon(Icons.check_circle, size: 32),
-    onPressed: () {
-      double amount =
-          double.parse(amountController.text.trim().replaceAll(",", "."));
-      String name = nameController.text.trim();
-
-      Navigator.of(context).pop(
-        Entry(amount: amount, name: name, isIncome: isIncome),
-      );
-    },
-  ));
-
-  return items;
 }

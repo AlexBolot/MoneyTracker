@@ -29,7 +29,7 @@ class Wallet {
     name = map['name'];
     hasBalance = map['hasBalance'] as bool;
     isSecondaryCurrency = map['isSecondaryCurrency'] as bool;
-    iconData = IconData(map['iconData']);
+    iconData = IconData(map['iconData'], fontFamily: 'MaterialIcons');
     dayEntries = map['dayEntries'].map((dayEntry) => DayEntry.fromMap(dayEntry)).toList().cast<DayEntry>();
     dayEntries.sort();
   }
@@ -48,8 +48,12 @@ class Wallet {
   }
 
   double averageSpending() {
-    int nbDays = 1 + DateTime.now().difference(trip.start).inDays;
+    DateTime now = DateTime.now();
+    DateTime shortNow = DateTime.utc(now.year, now.month, now.day);
+
+    int nbDays = shortNow.difference(trip.start).inDays + 1;
     double total = dayEntries.map((entry) => entry.totalSpent).reduce(sum);
+
     return total / nbDays;
   }
 
