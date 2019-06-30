@@ -77,31 +77,30 @@ class _DayCardState extends State<DayCard> {
         mainAxisSize: MainAxisSize.max,
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: <Widget>[
+          Text(
+            entry.name,
+            style: TextStyle(fontSize: 18.0),
+          ),
           InkWell(
             onTap: () async {
-              Entry res = await showDialog(context: context, builder: (context) => CrudEntryDialogue(entry: entry));
+              Entry res = await showDialog(
+                  context: context,
+                  builder: (context) => CrudEntryDialogue(entry: entry));
 
               if (res == null) return;
-
-              if (res.name.isEmpty && res.amount == 0) {
-                entryList.remove(entry);
-              } else {
-                entry.name = res.name;
-                entry.amount = res.amount;
-                entry.isIncome = res.isIncome;
-              }
+              entry.name = res.name;
+              entry.amount = res.amount;
+              entry.isIncome = res.isIncome;
               WalletService.saveWallets();
               setState(() {});
             },
-            child: Text(
-              entry.name,
-              style: TextStyle(fontSize: 18.0),
+            child: MoneyText(
+              amount: entry.amount,
+              isSecondary: widget.isSecondary,
+              style: TextStyle(
+                  fontSize: 18.0,
+                  color: entry.isSpending ? Colors.red : Colors.green),
             ),
-          ),
-          MoneyText(
-            amount: entry.amount,
-            isSecondary: widget.isSecondary,
-            style: TextStyle(fontSize: 18.0, color: entry.isSpending ? Colors.red : Colors.green),
           ),
         ],
       ),

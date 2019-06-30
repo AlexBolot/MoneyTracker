@@ -17,12 +17,14 @@ class _SettingsState extends State<Settings> {
         child: ListView(
           children: <Widget>[
             ListTile(
-              title: Text("Mes porte-monnaie", style: TextStyle(fontSize: 20)),
-              onTap: () => Navigator.push(context, MaterialPageRoute(builder: (context) => SettingsWallets())),
+              title: Text("Mon voyage", style: TextStyle(fontSize: 20)),
+              onTap: () => Navigator.push(context,
+                  MaterialPageRoute(builder: (context) => SettingsCurrency())),
             ),
             ListTile(
-              title: Text("Devises", style: TextStyle(fontSize: 20)),
-              onTap: () => Navigator.push(context, MaterialPageRoute(builder: (context) => SettingsCurrency())),
+              title: Text("Mes porte-monnaie", style: TextStyle(fontSize: 20)),
+              onTap: () => Navigator.push(context,
+                  MaterialPageRoute(builder: (context) => SettingsWallets())),
             ),
           ],
         ),

@@ -22,7 +22,10 @@ class Trip {
   }
 
   double get totalSpent {
-    return wallets.map((entry) => entry.totalSpent).reduce(sum);
+    //List<DayEntry> =
+      var tt = wallets.map((dayEntry) => dayEntry.totalSpent); //.reduce(sum);
+      var ttt = tt.reduce(sum);
+      return ttt;
   }
 
   double get balance {
@@ -35,7 +38,7 @@ class Trip {
 
   double averageSpending() {
     int nbDays = 1 + DateTime.now().difference(start).inDays;
-    double total = wallets.map((wallet) => wallet.totalSpent).reduce(sum);
+    double total =  wallets.map((wallet) => wallet.totalSpent).reduce(sum);
     return total / nbDays;
   }
 

@@ -17,7 +17,8 @@ class GlobalView extends StatefulWidget {
   _GlobalViewState createState() => _GlobalViewState();
 }
 
-class _GlobalViewState extends State<GlobalView> with SingleTickerProviderStateMixin {
+class _GlobalViewState extends State<GlobalView>
+    with SingleTickerProviderStateMixin {
   TabController tabController;
 
   @override

@@ -17,7 +17,7 @@ class _HomeViewState extends State<HomeView> {
         elevation: 8,
         margin: EdgeInsets.all(16),
         child: Padding(
-          padding: const EdgeInsets.all(16.0),
+          padding: const EdgeInsets.all(2.0),
           child: Column(
             mainAxisSize: MainAxisSize.min,
             crossAxisAlignment: CrossAxisAlignment.center,
@@ -33,19 +33,22 @@ List<Widget> Recap() {
   List<Widget> items = [];
   //double totalSpend = trip.wallets.map((wallet) => wallet.totalSpent).reduce(sum);
 
-  items.add(Text(
-    trip.name,
-    style: TextStyle(
-      fontSize: 28,
-      fontWeight: FontWeight.bold,
-      color: Colors.blueAccent,
+  items.add(Container(
+    padding: EdgeInsets.symmetric(horizontal: 8),
+    child: Text(
+      trip.name,
+      style: TextStyle(
+        fontSize: 28,
+        fontWeight: FontWeight.bold,
+        color: Colors.blueAccent,
+      ),
     ),
   ));
 
   items.add(Divider());
 
   items.add(Container(
-    padding: EdgeInsets.symmetric(horizontal: 48),
+    padding: EdgeInsets.symmetric(horizontal: 28),
     child: Row(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: <Widget>[
@@ -62,13 +65,13 @@ List<Widget> Recap() {
   items.add(Divider());
 
   items.add(Container(
-    padding: EdgeInsets.symmetric(horizontal: 48),
+    padding: EdgeInsets.symmetric(horizontal: 28),
     child: Row(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: <Widget>[
         Text('Dépense moyenne', style: TextStyle(fontSize: 18)),
         MoneyText(
-          amount: trip.averageSpending(),
+          amount: 0, //trip.averageSpending(),
           isSecondary: false,
           style: TextStyle(fontSize: 18),
         ),

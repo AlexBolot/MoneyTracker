@@ -21,10 +21,6 @@ class Wallet {
     this.dayEntries.sort();
   }
 
-  double get totalSpent {
-    return dayEntries.map((entry) => entry.totalSpent).reduce(sum);
-  }
-
   Wallet.fromMap(Map map) {
     name = map['name'];
     hasBalance = map['hasBalance'] as bool;
@@ -34,12 +30,16 @@ class Wallet {
     dayEntries.sort();
   }
 
+  double get totalSpent {
+    return dayEntries.isEmpty ? 0 : dayEntries.map((dayEntry) => dayEntry.totalSpent).reduce(sum);
+  }
+
   double get balance {
-    return dayEntries.map((entry) => entry.totalIncome - entry.totalSpent).reduce(sum);
+    return dayEntries.isEmpty ? 0 : dayEntries.map((dayEntry) => dayEntry.totalIncome - dayEntry.totalSpent).reduce(sum);
   }
 
   void addEntry(Entry entry) {
-    if (dayEntries.first.isToday)
+    if (dayEntries.length>0 &&  dayEntries.first.isToday)
       dayEntries.first.entries.add(entry);
     else
       dayEntries.add(DayEntry(dateTime: DateTime.now(), entries: [entry]));
@@ -47,14 +47,14 @@ class Wallet {
     dayEntries.sort();
   }
 
-  double averageSpending() {
+  double get averageSpending {
+
     DateTime now = DateTime.now();
     DateTime shortNow = DateTime.utc(now.year, now.month, now.day);
 
     int nbDays = shortNow.difference(trip.start).inDays + 1;
-    double total = dayEntries.map((entry) => entry.totalSpent).reduce(sum);
 
-    return total / nbDays;
+    return totalSpent / nbDays;
   }
 
   Map toMap() {

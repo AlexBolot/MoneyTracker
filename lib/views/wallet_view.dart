@@ -34,26 +34,34 @@ class _WalletViewState extends State<WalletView> {
 
     return Stack(
       alignment: Alignment(1, 1),
-      children: <Widget>[
-        Container(child: ListView(children: buildItems())),
-        Padding(
-          padding: const EdgeInsets.all(32.0),
-          child: FloatingActionButton(
-            tooltip: "Ajouter un mouvement",
-            child: Icon(Icons.add, size: 32),
-            onPressed: () async {
-              Entry res = await showDialog(context: context, builder: (context) => CrudEntryDialogue());
-
-              if (res == null) return;
-
-              widget.wallet.addEntry(res);
-              WalletService.saveWallets();
-              setState(() {});
-            },
-          ),
-        ),
-      ],
+      children: content()
     );
+  }
+
+  List<Widget> content() {
+    List<Widget> listView = [];
+    listView.add(Container(child: ListView(children: buildItems())));
+
+    if (!trip.start.isAfter(DateTime.now())) {
+      listView.add(Padding(
+        padding: const EdgeInsets.all(32.0),
+        child: FloatingActionButton(
+          tooltip: "Ajouter un mouvement",
+          child: Icon(Icons.add, size: 32),
+          onPressed: () async {
+            Entry res = await showDialog(
+                context: context, builder: (context) => CrudEntryDialogue());
+
+            if (res == null) return;
+
+            widget.wallet.addEntry(res);
+            WalletService.saveWallets();
+            setState(() {});
+          },
+        ),
+      ));
+    }
+    return listView;
   }
 
   List<Widget> buildItems() {
@@ -97,7 +105,7 @@ class _WalletViewState extends State<WalletView> {
         amount: widget.wallet.balance,
         isSecondary: isSecondary,
         style: TextStyle(
-          fontSize: 28,
+          fontSize: 24,
           fontWeight: FontWeight.bold,
           color: widget.wallet.balance.isNegative ? Colors.red : Colors.green,
         ),
@@ -106,10 +114,19 @@ class _WalletViewState extends State<WalletView> {
     }
 
     items.add(MoneyText(
-      text: 'Dépense moyenne',
-      amount: widget.wallet.averageSpending(),
+      text: 'Dépense totale',
+      amount: widget.wallet.averageSpending,
       isSecondary: isSecondary,
-      style: TextStyle(fontSize: widget.wallet.hasBalance ? 18 : 25),
+      style: TextStyle(fontSize: 18),
+    ));
+
+    items.add(Divider());
+
+    items.add(MoneyText(
+      text: 'Dépense moyenne',
+      amount: widget.wallet.averageSpending,
+      isSecondary: isSecondary,
+      style: TextStyle(fontSize: 18),
     ));
 
     return items;
