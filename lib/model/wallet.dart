@@ -26,35 +26,46 @@ class Wallet {
     hasBalance = map['hasBalance'] as bool;
     isSecondaryCurrency = map['isSecondaryCurrency'] as bool;
     iconData = IconData(map['iconData'], fontFamily: 'MaterialIcons');
-    dayEntries = map['dayEntries'].map((dayEntry) => DayEntry.fromMap(dayEntry)).toList().cast<DayEntry>();
+    dayEntries = map['dayEntries']
+        .map((dayEntry) => DayEntry.fromMap(dayEntry))
+        .toList()
+        .cast<DayEntry>();
     dayEntries.sort();
   }
 
   double get totalSpent {
-    return dayEntries.isEmpty ? 0 : dayEntries.map((dayEntry) => dayEntry.totalSpent).reduce(sum);
+    return dayEntries.isEmpty
+        ? 0
+        : dayEntries.map((dayEntry) => dayEntry.totalSpent).reduce(sum);
   }
 
   double get balance {
-    return dayEntries.isEmpty ? 0 : dayEntries.map((dayEntry) => dayEntry.totalIncome - dayEntry.totalSpent).reduce(sum);
+    return dayEntries.isEmpty
+        ? 0
+        : dayEntries
+            .map((dayEntry) => dayEntry.totalIncome - dayEntry.totalSpent)
+            .reduce(sum);
   }
 
   void addEntry(Entry entry) {
-    if (dayEntries.length>0 &&  dayEntries.first.isToday)
-      dayEntries.first.entries.add(entry);
-    else
-      dayEntries.add(DayEntry(dateTime: DateTime.now(), entries: [entry]));
+    DayEntry day;
+    if (dayEntries.length > 0) {
+      day = dayEntries.firstWhere(
+          (dayEntry) => dayEntry.dateTime.day == entry.dateTime.day,
+          orElse: () => null);
+    }
+
+    if (day == null) {
+      dayEntries.add(DayEntry(dateTime: entry.dateTime, entries: [entry]));
+    } else {
+      day.entries.add(entry);
+    }
 
     dayEntries.sort();
   }
 
   double get averageSpending {
-
-    DateTime now = DateTime.now();
-    DateTime shortNow = DateTime.utc(now.year, now.month, now.day);
-
-    int nbDays = shortNow.difference(trip.start).inDays + 1;
-
-    return totalSpent / nbDays;
+    return totalSpent / trip.nbDays;
   }
 
   Map toMap() {

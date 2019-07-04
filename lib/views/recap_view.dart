@@ -52,7 +52,7 @@ List<Widget> Recap() {
     child: Row(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: <Widget>[
-        Text('Dépense totale', style: TextStyle(fontSize: 18)),
+        Text('Dépense sur '+trip.nbDays.toString() + ' jours.', style: TextStyle(fontSize: 18)),
         MoneyText(
           amount: trip.totalSpent,
           isSecondary: false,
@@ -71,7 +71,7 @@ List<Widget> Recap() {
       children: <Widget>[
         Text('Dépense moyenne', style: TextStyle(fontSize: 18)),
         MoneyText(
-          amount: 0, //trip.averageSpending(),
+          amount: trip.averageSpending(),
           isSecondary: false,
           style: TextStyle(fontSize: 18),
         ),

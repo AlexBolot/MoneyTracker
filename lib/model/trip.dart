@@ -36,8 +36,12 @@ class Trip {
     this.wallets.add(wallet);
   }
 
+    int get nbDays
+    {
+      return 1 + DateTime.now().difference(start).inDays;
+    }
+
   double averageSpending() {
-    int nbDays = 1 + DateTime.now().difference(start).inDays;
     double total =  wallets.map((wallet) => wallet.totalSpent).reduce(sum);
     return total / nbDays;
   }

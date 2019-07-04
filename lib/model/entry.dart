@@ -3,29 +3,21 @@ import 'package:flutter/material.dart';
 class Entry {
   String name;
   double amount = 0;
-  int factor = 1;
   DateTime dateTime;
-  bool _isIncome = true;
+  bool isIncome = true;
 
-  set isIncome(bool entryIsIncome) {
-    if (_isIncome != entryIsIncome) factor = -factor;
-  }
-
-  bool get isIncome => factor > 0;
+  int get factor => isIncome ? 1 : -1;
 
   bool get isSpending => !isIncome;
 
-  Entry({@required this.name, @required double amount, bool isIncome = false}) {
-    this.amount = amount;
-    _isIncome = isIncome;
-    this.factor = isIncome ? 1 : -1;
-    this.dateTime = DateTime.now();
+  Entry({@required this.name, @required this.amount, this.isIncome = false, DateTime dateTime}) {
+    this.dateTime = dateTime ?? DateTime.now();
   }
 
   Entry.fromMap(Map map) {
     name = map['name'];
     amount = map['amount'];
-    factor = map['factor'];
+    isIncome = map['isIncome'] ?? map['factor']==1;
     dateTime = DateTime.parse(map['dateTime']);
   }
 
@@ -33,7 +25,7 @@ class Entry {
     return {
       'name': name,
       'amount': amount,
-      'factor': factor,
+      'isIncome': isIncome,
       'dateTime': dateTime.toIso8601String(),
     };
   }

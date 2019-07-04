@@ -88,9 +88,14 @@ class _DayCardState extends State<DayCard> {
                   builder: (context) => CrudEntryDialogue(entry: entry));
 
               if (res == null) return;
-              entry.name = res.name;
-              entry.amount = res.amount;
-              entry.isIncome = res.isIncome;
+
+              if (res.name.isEmpty && res.amount == 0) {
+                widget.dayEntry.entries.remove(entry);
+              } else {
+                entry.name = res.name;
+                entry.amount = res.amount;
+                entry.isIncome = res.isIncome;
+              }
               WalletService.saveWallets();
               setState(() {});
             },

@@ -14,6 +14,8 @@ Trip trip;
 class WalletService {
   static String documentsPath;
 
+  static DateTime lastEntryDate = DateTime.now();
+
   static initTrip() {
     trip = Trip(
       name: 'Votre voyage',
