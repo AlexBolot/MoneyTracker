@@ -14,3 +14,7 @@ You can manage multiple wallets, with different currencies !
 | Trip summary | First wallet | Second wallet |
 |:---:|:---:|:---:|
 | <img src="assets/resume-voyage.png" height="400" alt="resume-voyage.png"> | <img src="assets/wallet-cash.png" height="400" alt="wallet-cash.png"> | <img src="assets/wallet-N26.png" height="400" alt="wallet-N26.png"> |
+
+| Adding a new expense/income | Using tooltip to translate currency |
+|:---:|:---:|
+| <img src="assets/ajout-depense.png" height="400" alt="ajout-depense.png"> | <img src="assets/tooltip.png" height="400" alt="tooltip.png"> |
