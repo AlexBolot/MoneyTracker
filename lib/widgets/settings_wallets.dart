@@ -45,7 +45,6 @@ class _SettingsWalletsState extends State<SettingsWallets> {
     );
   }
 
-
   List<Widget> buildItems() {
     List<Widget> items = [];
     for (Wallet wallet in trip.wallets) {
@@ -57,13 +56,9 @@ class _SettingsWalletsState extends State<SettingsWallets> {
   Widget walletLine(Wallet wallet) {
     return InkWell(
         onTap: () async {
-          Wallet res = await showDialog(
-              context: context,
-              builder: (context) => CrudWalletDialogue(wallet: wallet));
+          Wallet res = await showDialog(context: context, builder: (context) => CrudWalletDialogue(wallet: wallet));
 
-          if (res == null) {
-            trip.wallets.remove(wallet);
-          } else {
+          if (res != null) {
             wallet.name = res.name;
             wallet.isSecondaryCurrency = res.isSecondaryCurrency;
             wallet.hasBalance = res.hasBalance;

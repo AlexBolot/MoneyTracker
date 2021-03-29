@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_stash/flutter_stash.dart';
+import 'package:intl/date_symbol_data_local.dart' as intl;
 import 'package:money_tracker/services/wallet_service.dart';
 import 'package:money_tracker/views/global_view.dart';
-import 'package:intl/date_symbol_data_local.dart' as intl;
 import 'package:path_provider/path_provider.dart';
 
 void main() {
@@ -16,7 +16,7 @@ class MyApp extends StatelessWidget {
     buildSplashScreen() => SplashScreen(
           title: applicationName,
           nextRouteName: GlobalView.routeName,
-          loadFunctions: [
+          waitFor: [
             () async => await intl.initializeDateFormatting("fr", null),
             () async => WalletService.documentsPath = (await getApplicationDocumentsDirectory()).path,
             //() async => WalletService.initRealTrip(),

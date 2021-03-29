@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:money_tracker/services/wallet_service.dart';
 import 'package:money_tracker/model/wallet.dart';
+import 'package:money_tracker/services/wallet_service.dart';
 import 'package:money_tracker/views/recap_view.dart';
 import 'package:money_tracker/views/wallet_view.dart';
-import 'package:money_tracker/widgets/settings.dart';
 import 'package:money_tracker/widgets/description_tab.dart';
+import 'package:money_tracker/widgets/settings.dart';
 
 class GlobalView extends StatefulWidget {
   static const String routeName = "/GlobalView";
@@ -17,8 +17,7 @@ class GlobalView extends StatefulWidget {
   _GlobalViewState createState() => _GlobalViewState();
 }
 
-class _GlobalViewState extends State<GlobalView>
-    with SingleTickerProviderStateMixin {
+class _GlobalViewState extends State<GlobalView> with SingleTickerProviderStateMixin {
   TabController tabController;
 
   @override
