@@ -1,8 +1,6 @@
-![Logo](assets/logo.png)
 
-<img src="assets/logo.png" height="90" width="90" alt="logo.png">
 
-# money_tracker
+# money_tracker ![Logo](assets/logo.png)
 
 A new Flutter application to keep track of your budget and expenses during a trip to another country
 You can manage multiple wallets, with different currencies !
